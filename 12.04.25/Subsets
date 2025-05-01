@@ -1,0 +1,15 @@
+class Solution(object):
+    def subsets(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        result = []
+        def recurse(start, path):
+            result.append(path[:])
+            for index in range(start, len(nums)):
+                path.append(nums[index])
+                recurse(index + 1, path)
+                path.pop()
+        recurse(0, [])
+        return result
