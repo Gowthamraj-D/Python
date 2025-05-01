@@ -1,0 +1,48 @@
+class Solution(object):
+    def isValidSudoku(self, board):
+        """
+        :type board: List[List[str]]
+        :rtype: bool
+        """
+        for line in board:
+            if not self.check_line_validity(line):
+                return False
+        for i in range(9):
+            if not self.check_column_validity(board, i):
+                return False
+        squares_list = self.squares_list(board)
+        for square in squares_list:
+            if not self.check_line_validity(square):
+                return False
+        return True
+
+    
+    def check_line_validity(self, line):
+        visited = []
+        values = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "."]
+        for i in range(9):
+            if line[i] in visited or line[i] not in values:
+                return False
+            if line[i] != ".":
+                visited.append(line[i])
+        return True
+    
+    def check_column_validity(self, board, i):
+        visited = []
+        for j in range(9):
+            if board[j][i] in visited:
+                return False
+            if board[j][i] != ".":
+                visited.append(board[j][i])
+        return True
+    
+    def squares_list(self, board):
+        squares = []
+        for i in range(3):
+            for j in range(3):
+                squares.append(board[3*j][3*i:3*(i+1)] + board[3*j+1][3*i:3*(i+1)] + board[3*j+2][3*i:3*(i+1)])
+        return squares
+
+
+
+        
