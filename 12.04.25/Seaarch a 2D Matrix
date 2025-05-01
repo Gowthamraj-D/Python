@@ -1,0 +1,31 @@
+class Solution(object):
+    def searchMatrix(self, matrix, target):
+        """
+        :type matrix: List[List[int]]
+        :type target: int
+        :rtype: bool
+        """
+        m=len(matrix)
+        n=len(matrix[0])
+        arr=[]
+        for i in range(m):
+            ans=[]
+            ans.append(matrix[i][0])
+            ans.append(matrix[i][n-1])
+            arr.append(ans)
+        idx=-1
+        for i in range(m):
+            first=arr[i][0]
+            second=arr[i][1]
+            if target>=first and target<=second:
+                idx=i
+                break
+        ans1=matrix[idx]
+        for i in ans1:
+            if i==target:
+                return True
+        return False
+        
+
+
+        
