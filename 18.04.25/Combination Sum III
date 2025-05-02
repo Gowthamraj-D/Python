@@ -1,0 +1,23 @@
+class Solution(object):
+    def combinationSum3(self, k, n):
+        """
+        :type k: int
+        :type n: int
+        :rtype: List[List[int]]
+        """
+        result = []
+        def backtrack(temp, end, n):
+            if n == 0 and len(temp) == k:
+                result.append(temp[:])
+                return
+            elif n < 0 or len(temp) == k:
+                return
+            for i in range(end, 0, -1):
+                if i > n or i in temp:
+                    continue
+                temp.append(i)
+                backtrack(temp, i, n - i)
+                temp.pop()
+        backtrack([], 9, n)
+        return result
+        
