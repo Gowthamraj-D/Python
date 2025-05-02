@@ -1,0 +1,51 @@
+class Solution(object):
+    def wordBreak(self, s, wordDict):
+        """
+        :type s: str
+        :type wordDict: List[str]
+        :rtype: bool
+        """
+        
+        #dynamic programming
+        
+        #form a length to words dict
+        len_dict = defaultdict(list)
+        for word in wordDict:
+            len_dict[len(word)] = len_dict[len(word)] + [word] 
+            
+        break_dict = {} #memoization 
+            
+        def get_sent(i):
+            """
+            """
+            #base case
+            if i == len(s):
+                return True, []
+            #use memoization
+            if i in break_dict:
+                return break_dict[i]
+            
+            tail_sentences = []
+            break_dict[i] = False, tail_sentences
+            for j in [k for k in len_dict.keys() if k <= len(s)-i]: #iterate over word lengths in wordDict
+                if s[i:i+j] in len_dict[j]: #word exists in wordList
+                    result = get_sent(i+j) #recursion, get all sentences in tail beyond word
+                    if result[0]:  #tail can be split
+                        if result[1]: #tail split is non-empty
+                            tail_sentences.extend([s[i:i+j] + " " + sent for sent in result[1]])
+                        else: #tail split is empty
+                            tail_sentences.extend([s[i:i+j]])
+            if tail_sentences: #atleast one split exists
+                break_dict[i] = True, tail_sentences
+            return break_dict[i] 
+        
+        return get_sent(0)[1]
+                
+                
+                
+                
+                
+                
+                
+                
+        
