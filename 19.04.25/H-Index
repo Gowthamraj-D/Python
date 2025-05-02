@@ -1,0 +1,23 @@
+class Solution(object):
+    def hIndex(self, citations):
+        """
+        :type citations: List[int]
+        :rtype: int
+        """
+        max_value = 0
+        n = len(citations)
+        if n == 1:
+            if citations[0] == 0:
+                return 0
+            else:
+                return 1
+        for i in range(max(citations) + 1):
+            if i != 0:
+                cmpt = self.count_occurences(citations, i)
+                if cmpt > max_value:
+                    max_value = i
+        return max_value
+
+    def count_occurences(self, citations, value):
+        return sum(1 for x in citations if x >= value)
+        
