@@ -1,0 +1,22 @@
+class Solution(object):
+    def maxSlidingWindow(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        d=deque()
+        for idx in range(k):
+            while d and nums[idx]>=nums[d[-1]]:
+                d.pop()
+            d.append(idx)
+        res=[]
+        for idx in range(k,len(nums)):
+            res.append(nums[d[0]])
+            if d[0]<=idx-k:
+                d.popleft()
+            while d and nums[idx]>=nums[d[-1]]:
+                d.pop()
+            d.append(idx)
+        res.append(nums[d[0]])
+        return res
