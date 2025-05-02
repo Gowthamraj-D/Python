@@ -1,0 +1,14 @@
+class Solution(object):
+    def majorityElement(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        res = []
+        n = len(nums)
+        req = n // 3
+        for i in nums:
+            if i not in res:
+                if nums.count(i)>req:
+                    res.append(i)
+        return res
