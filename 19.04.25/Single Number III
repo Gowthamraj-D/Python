@@ -1,0 +1,17 @@
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        ans=[]
+        ndict={}
+        for i in nums:
+            ndict[i]=0
+        for i in nums:
+            ndict[i]+=1
+        for i in ndict:
+            if ndict[i]==1:
+                ans.append(i)
+        return ans
+        
